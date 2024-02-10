@@ -57,4 +57,6 @@ blst_fr *anemoi_get_beta_from_context(anemoi_ctxt_t *ctxt);
 blst_fr *anemoi_get_delta_from_context(anemoi_ctxt_t *ctxt);
 #endif
 
+void print_blst_fr_decimal_repr(blst_fr *res);
+
 #endif

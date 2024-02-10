@@ -17,6 +17,22 @@
 #define PARAMETERS_PI_1_UINT64_3 15876828330348505698ul
 #define PARAMETERS_PI_1_UINT64_4 460229099596993801ul
 
+void print_blst_fr_decimal_repr(blst_fr *r) {
+  uint64_t r_uint64[4];
+  blst_scalar s;
+  blst_scalar_from_fr(&s, r);
+  blst_uint64_from_scalar(r_uint64, &s);
+
+
+  if (r_uint64[3] != 0ul)
+    printf("%lu", r_uint64[3]);
+  if (r_uint64[2] != 0ul)
+    printf("%lu", r_uint64[2]);
+  if (r_uint64[1] != 0ul)
+    printf("%lu", r_uint64[1]);
+  printf("%lu\n", r_uint64[0]);
+}
+
 void blst_fr_set_to_one(blst_fr *r) {
   blst_scalar s;
   uint64_t t[4] = {1ul, 0ul, 0ul, 0ul};
@@ -52,6 +68,7 @@ void anemoi_compute_round_constants(blst_fr *buffer, int l, int nb_rounds) {
                              PARAMETERS_PI_0_UINT64_3,
                              PARAMETERS_PI_0_UINT64_4};
   blst_fr_from_uint64(&pi_0, pi_0_uint64);
+  print_blst_fr_decimal_repr(&pi_0);
 
   blst_fr pi_1;
   uint64_t pi_1_uint64[4] = {PARAMETERS_PI_1_UINT64_1, PARAMETERS_PI_1_UINT64_2,
@@ -65,10 +82,14 @@ void anemoi_compute_round_constants(blst_fr *buffer, int l, int nb_rounds) {
       PARAMETERS_DELTA_UINT64_3, PARAMETERS_DELTA_UINT64_4};
   blst_fr_from_uint64(&delta, delta_uint64);
 
+  print_blst_fr_decimal_repr(&delta);
+
   // generator
   blst_fr g;
   uint64_t g_uint64[4] = {7, 0, 0, 0};
   blst_fr_from_uint64(&g, g_uint64);
+
+  print_blst_fr_decimal_repr(&g);
 
   blst_fr *csts_c = buffer;
   blst_fr *csts_d = buffer + l * nb_rounds;
